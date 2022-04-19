@@ -30,4 +30,3 @@ int get_flag(char s, c_flags *f)
 
 	return (i);
 }
-
