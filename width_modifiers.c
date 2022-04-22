@@ -34,6 +34,7 @@ unsigned int print_width(buffer_t *output, unsigned int printed,
 	return (ret);
 }
 
+
 /**
  * print_string_width - Stores leading spaces to a buffer for a width modifier.
  * @output: A buffer_t struct containing a character array.
@@ -55,9 +56,9 @@ unsigned int print_string_width(buffer_t *output,
 	{
 		wid -= (prec == -1) ? size : prec;
 		for (; wid > 0; wid--)
-			ret += _memcpy(output, &width, 1)
+			ret += _memcpy(output, &width, 1);
 	}
-	
+
 	return (ret);
 }
 
@@ -78,11 +79,12 @@ unsigned int print_neg_width(buffer_t *output, unsigned int printed,
 {
 	unsigned int ret = 0;
 	char width = ' ';
-	
+
 	if (NEG_FLAG == 1)
 	{
 		for (wid -= printed; wid > 0; wid--)
 			ret += _memcpy(output, &width, 1);
 	}
+
 	return (ret);
 }
