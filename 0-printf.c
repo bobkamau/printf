@@ -1,12 +1,12 @@
 #include "main.h"
 /**
- * print_fmtd - take string and print formatted string
- * @format: whole str
- * @list: letter specifiers ... d
- * @ap: all args passed
- *
- * Return: int
- */
+  * print_fmtd - take string and print formatted string
+  * @format: whole str
+  * @list: letter specifiers ... d
+  * @ap: all args passed
+  *
+  * Return: int
+  */
 int print_fmtd(const char *format, fts list[], va_list ap)
 {
 	int i, j, argvs, total = 0;
@@ -48,11 +48,11 @@ int print_fmtd(const char *format, fts list[], va_list ap)
 	return (total);
 }
 /**
- * _printf - produce output according to format
- * @format: char str
- *
- * Return: int
- */
+  * _printf - produce output according to format
+  * @format: char str
+  *
+  * Return: int
+  */
 int _printf(const char *format, ...)
 {
 	int total;
