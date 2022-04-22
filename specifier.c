@@ -10,16 +10,16 @@ int handle_precision(va_list args, const char *modifier, char *index);
 
 unsigned int (*handle_specifiers(const char *specifier))(va_list, buffer_t *,
 		unsigned char, int, int, unsigned char);
+
 /**
  * handle_flags - Matches flags with corresponding values.
  * @flag: A pointer to a potential string of flags.
  * @index: An index counter for the original format string.
  *
  * Return: If flag characters are matched - a corresponding value.
- *
  *         Otherwise - 0.
- *
  */
+
 unsigned char handle_flags(const char *flag, char *index)
 {
 	int i, j;
@@ -32,7 +32,7 @@ unsigned char handle_flags(const char *flag, char *index)
 		{'-', NEG},
 		{0, 0}
 	};
-	
+
 	for (i = 0; flag[i]; i++)
 	{
 		for (j = 0; flags[j].flag != 0; j++)
@@ -50,6 +50,7 @@ unsigned char handle_flags(const char *flag, char *index)
 		if (flags[j].value == 0)
 			break;
 	}
+
 	return (ret);
 }
 
@@ -69,13 +70,16 @@ unsigned char handle_length(const char *modifier, char *index)
 		(*index)++;
 		return (SHORT);
 	}
+
 	else if (*modifier == 'l')
 	{
 		(*index)++;
 		return (LONG);
 	}
+
 	return (0);
 }
+
 /**
  * handle_width - Matches a width modifier with its corresponding value.
  * @args: A va_list of arguments.
@@ -84,17 +88,16 @@ unsigned char handle_length(const char *modifier, char *index)
  *
  * Return: If a width modifier is matched - its value.
  *         Otherwise - 0.
- *
  */
 
 int handle_width(va_list args, const char *modifier, char *index)
 {
 	int value = 0;
-	
+
 	while ((*modifier >= '0' && *modifier <= '9') || (*modifier == '*'))
 	{
 		(*index)++;
-		
+
 		if (*modifier == '*')
 		{
 			value = va_arg(args, int);
@@ -102,11 +105,12 @@ int handle_width(va_list args, const char *modifier, char *index)
 				return (0);
 			return (value);
 		}
+
 		value *= 10;
-		value += (modifier - '0');
+		value += (*modifier - '0');
 		modifier++;
 	}
-	
+
 	return (value);
 }
 
@@ -120,33 +124,32 @@ int handle_width(va_list args, const char *modifier, char *index)
  * Return: If a precision modifier is matched - its value.
  *         If the precision modifier is empty, zero, or negative - 0.
  *         Otherwise - -1.
- *
  */
 
 
 int handle_precision(va_list args, const char *modifier, char *index)
 {
 	int value = 0;
-	
+
 	if (*modifier != '.')
 		return (-1);
-	
+
 	modifier++;
 	(*index)++;
-	
+
 	if ((*modifier <= '0' || *modifier > '9') &&
-			*modifier != '*')
+	     *modifier != '*')
 	{
 		if (*modifier == '0')
 			(*index)++;
 		return (0);
 	}
-	
+
 	while ((*modifier >= '0' && *modifier <= '9') ||
-			(*modifier == '*'))
+	       (*modifier == '*'))
 	{
 		(*index)++;
-		
+
 		if (*modifier == '*')
 		{
 			value = va_arg(args, int);
@@ -154,12 +157,12 @@ int handle_precision(va_list args, const char *modifier, char *index)
 				return (0);
 			return (value);
 		}
-		
+
 		value *= 10;
 		value += (*modifier - '0');
 		modifier++;
 	}
-	
+
 	return (value);
 }
 
@@ -193,12 +196,12 @@ unsigned int (*handle_specifiers(const char *specifier))(va_list, buffer_t *,
 		{'R', convert_R},
 		{0, NULL}
 	};
-	
+
 	for (i = 0; converters[i].func; i++)
 	{
 		if (converters[i].specifier == *specifier)
 			return (converters[i].func);
 	}
-	
+
 	return (NULL);
 }
